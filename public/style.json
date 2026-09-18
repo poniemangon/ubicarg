@@ -42,20 +42,6 @@
       }
     },
     {
-      "id": "boundary-province",
-      "type": "line",
-      "source": "openfreemap",
-      "source-layer": "boundary",
-      "filter": ["all", ["==", ["get", "admin_level"], 4], ["!=", ["get", "maritime"], true]],
-      "layout": { "line-cap": "round", "line-join": "round" },
-      "paint": {
-        "line-color": "#ffe066",
-        "line-opacity": 0.6,
-        "line-width": ["interpolate", ["linear"], ["zoom"], 4, 0.5, 10, 1.5],
-        "line-dasharray": [3, 2]
-      }
-    },
-    {
       "id": "boundary-country",
       "type": "line",
       "source": "openfreemap",
