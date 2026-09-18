@@ -40,6 +40,33 @@
         "line-color": "hsla(34, 12%, 66%, 0.5)",
         "line-width": 1
       }
+    },
+    {
+      "id": "boundary-province",
+      "type": "line",
+      "source": "openfreemap",
+      "source-layer": "boundary",
+      "filter": ["all", ["==", ["get", "admin_level"], 4], ["!=", ["get", "maritime"], true]],
+      "layout": { "line-cap": "round", "line-join": "round" },
+      "paint": {
+        "line-color": "#ffe066",
+        "line-opacity": 0.6,
+        "line-width": ["interpolate", ["linear"], ["zoom"], 4, 0.5, 10, 1.5],
+        "line-dasharray": [3, 2]
+      }
+    },
+    {
+      "id": "boundary-country",
+      "type": "line",
+      "source": "openfreemap",
+      "source-layer": "boundary",
+      "filter": ["all", ["<=", ["get", "admin_level"], 2], ["!=", ["get", "maritime"], true]],
+      "layout": { "line-cap": "round", "line-join": "round" },
+      "paint": {
+        "line-color": "#ffe066",
+        "line-opacity": 0.95,
+        "line-width": ["interpolate", ["linear"], ["zoom"], 2, 1, 6, 2.5, 12, 4]
+      }
     }
   ]
 }
