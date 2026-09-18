@@ -1,0 +1,283 @@
+.ranking-page-cards {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.ranking-board {
+  flex: 1 1 420px;
+  min-width: 0;
+  margin-bottom: 24px;
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(250, 204, 21, 0.35);
+  background: linear-gradient(135deg, rgba(250, 204, 21, 0.1), rgba(250, 204, 21, 0.02));
+}
+
+.ranking-board-title {
+  margin: 0 0 4px;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-h, #f5f5f5);
+}
+
+.ranking-subtitle {
+  margin: 0 0 20px;
+  font-size: 13px;
+  color: var(--text, #9ca3af);
+}
+
+.ranking-board-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 3px;
+  margin-bottom: 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.ranking-board-tab {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: var(--text, #9ca3af);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 4px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.ranking-board-tab:hover {
+  color: var(--text-h, #f5f5f5);
+}
+
+.ranking-board-tab-active,
+.ranking-board-tab-active:hover {
+  background: rgba(250, 204, 21, 0.18);
+  color: var(--text-h, #f5f5f5);
+}
+
+.ranking-section {
+  margin-bottom: 24px;
+}
+
+.ranking-section:last-child {
+  margin-bottom: 0;
+}
+
+.ranking-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.ranking-section-title {
+  font-size: 15px;
+  margin: 0;
+  color: var(--text-h, #f5f5f5);
+}
+
+.ranking-day-label {
+  font-size: 13px;
+  color: var(--text, #9ca3af);
+}
+
+.ranking-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ranking-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border, #262626);
+  background: var(--neutral, #121212);
+  color: var(--text-h, #f5f5f5);
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.ranking-row:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.ranking-row-rank {
+  width: 24px;
+  flex-shrink: 0;
+  font-weight: 700;
+  color: var(--text, #9ca3af);
+  text-align: center;
+}
+
+.ranking-row-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.ranking-row-avatar-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-primary, #38bdf8);
+  font-size: 14px;
+}
+
+.ranking-row-lead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.ranking-row-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.ranking-row-name {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.ranking-row-username-wrap,
+.ranking-row-badges-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.ranking-row-username {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ranking-row-detail {
+  flex-shrink: 0;
+  color: var(--text, #9ca3af);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+/* Narrow phones: name and score/detail stack into two lines instead of
+   squeezing onto one — rank+avatar stay put on the left either way. */
+@media (max-width: 600px) {
+  .ranking-row {
+    align-items: flex-start;
+  }
+
+  .ranking-row-lead {
+    padding-top: 2px;
+  }
+
+  .ranking-row-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+}
+
+/* Very narrow phones: shrink the row text, and split name from
+   badges/ELO onto their own line — username+★ daily-wins stay grouped on
+   line 1, BadgeIcon+EloBadge move to line 2, instead of all four squeezing
+   into one row. */
+@media (max-width: 400px) {
+  .ranking-row {
+    font-size: 12px;
+  }
+
+  .ranking-row-detail {
+    font-size: 12px;
+  }
+
+  .ranking-row-name {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    font-weight: 600;
+    flex-direction: column;
+  }
+
+  .ranking-row-username {
+    margin-right: 5px;
+  }
+}
+
+.ranking-list-scroll {
+  max-height: 552px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border, #262626) transparent;
+  padding-right: 4px;
+}
+
+.ranking-list-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ranking-list-scroll::-webkit-scrollbar-thumb {
+  background: var(--border, #262626);
+  border-radius: 999px;
+}
+
+.ranking-your-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.ranking-your-summary-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--accent-primary, #38bdf8);
+  background: rgba(0, 122, 255, 0.1);
+}
+
+.ranking-your-summary-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text, #9ca3af);
+}
+
+.ranking-your-summary-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-h, #f5f5f5);
+}
+
+.ranking-your-summary-empty {
+  font-size: 13px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--text, #9ca3af);
+}

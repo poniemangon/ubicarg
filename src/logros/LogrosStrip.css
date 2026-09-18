@@ -1,0 +1,77 @@
+.logros-strip {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 4px 2px 12px;
+}
+
+.logro-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  width: 72px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.logro-item-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 1px solid var(--border);
+}
+
+.logro-item-icon-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  background: var(--neutral);
+}
+
+.logro-item-title {
+  font-size: 11px;
+  line-height: 1.3;
+  color: var(--text);
+}
+
+.logro-item-popup {
+  position: fixed;
+  transform: translateX(-50%);
+  z-index: 99999999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 160px;
+  padding: 12px;
+  border-radius: 10px;
+  background: var(--neutral);
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  text-align: center;
+  cursor: default;
+}
+
+.logro-item-popup-img {
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.logro-item-popup-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-h);
+}
+
+.logro-item-popup-text {
+  font-size: 12px;
+  opacity: 0.75;
+  line-height: 1.4;
+}

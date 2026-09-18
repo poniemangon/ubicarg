@@ -1,0 +1,629 @@
+.groups-dashboard {
+  flex: 1;
+  overflow-y: auto;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  width: 100%;
+}
+
+.groups-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-h, #f5f5f5);
+  text-align: center;
+  margin: 0 0 8px;
+}
+
+.groups-subtitle {
+  text-align: center;
+  color: var(--text, #9ca3af);
+  font-size: 14px;
+  margin: 0 0 18px;
+}
+
+.groups-empty {
+  color: var(--text, #9ca3af);
+  margin-bottom: 18px;
+}
+
+.group-duel-history-list {
+  list-style: none;
+  margin: 0 0 24px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.group-duel-history-row {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border, #262626);
+  background: var(--neutral, #121212);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.group-duel-history-row:hover {
+  border-color: var(--accent-primary, #38bdf8);
+}
+
+.group-duel-history-date {
+  display: block;
+  font-size: 12px;
+  color: var(--text, #9ca3af);
+  margin-bottom: 6px;
+}
+
+.group-duel-history-players {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.group-duel-history-player {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.group-duel-history-winner {
+  font-weight: 700;
+}
+
+.group-duel-history-avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.group-duel-history-name {
+  flex: 1;
+  font-size: 13px;
+  color: var(--text-h, #f5f5f5);
+}
+
+.group-duel-history-score {
+  font-size: 13px;
+  color: var(--text, #9ca3af);
+}
+
+.groups-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.group-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+  border-radius: 14px;
+  border: 1px solid var(--border, #262626);
+  background: var(--neutral, #121212);
+  color: var(--text-h, #f5f5f5);
+  text-align: center;
+  cursor: pointer;
+}
+
+.group-card:hover {
+  border-color: var(--accent-primary, #38bdf8);
+}
+
+.group-card-image {
+  width: 72px;
+  height: 72px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.group-card-image-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+  color: var(--accent-primary, #38bdf8);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.group-card-name {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.group-card-members {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--text, #9ca3af);
+}
+
+.group-card-avatars {
+  display: flex;
+}
+
+.group-card-avatar,
+.group-card-avatar-fallback {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--neutral, #121212);
+  margin-left: -6px;
+}
+
+.group-card-avatar-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.group-card-avatars :first-child {
+  margin-left: 0;
+}
+
+.groups-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.groups-modal {
+  max-width: 360px;
+}
+
+.groups-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.groups-form input {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border, #333);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-h, #f5f5f5);
+  font-size: 14px;
+}
+
+.group-invite-link-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.group-invite-link-input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border, #333);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-h, #f5f5f5);
+  font-size: 13px;
+  cursor: default;
+}
+
+.groups-error {
+  color: #ff6b6b;
+  font-size: 13px;
+}
+
+.group-detail {
+  flex: 1;
+  overflow-y: auto;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  width: 100%;
+}
+
+/* Master-detail split for the group-detail view (App.jsx) — mobile/tablet
+   render GroupDetail alone (today's behavior, sidebar list hidden entirely
+   rather than just visually collapsed, since its own group-fetch would
+   otherwise run for nothing on small screens). Wide desktop shows the
+   compact groups list beside it, matching the mockup's list+detail layout. */
+.groups-layout {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+
+@media (min-width: 1080px) {
+  .groups-layout {
+    gap: 24px;
+    padding: 24px 28px;
+    overflow: hidden;
+  }
+
+  .groups-layout .group-detail {
+    padding: 0;
+  }
+}
+
+.groups-sidebar-list {
+  width: 320px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow-y: auto;
+}
+
+.groups-sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.groups-sidebar-title {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text, #9ca3af);
+}
+
+.groups-sidebar-add-btn {
+  border: none;
+  background: transparent;
+  color: var(--accent-primary, #38bdf8);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.groups-sidebar-add-btn:hover {
+  text-decoration: underline;
+}
+
+.groups-sidebar-rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.groups-sidebar-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border, #262626);
+  background: var(--neutral, #121212);
+  color: var(--text-h, #f5f5f5);
+  text-align: left;
+  cursor: pointer;
+}
+
+.groups-sidebar-row:hover {
+  border-color: var(--accent-primary, #38bdf8);
+}
+
+.groups-sidebar-row-active {
+  border-color: var(--accent-primary, #38bdf8);
+  background: rgba(0, 122, 255, 0.1);
+}
+
+.groups-sidebar-row-image {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.groups-sidebar-row-image-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent-primary, #38bdf8);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.groups-sidebar-row-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.groups-sidebar-row-name {
+  font-size: 13px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.groups-sidebar-row-members {
+  font-size: 11px;
+  color: var(--text, #9ca3af);
+}
+
+.groups-sidebar-join-btn {
+  flex-shrink: 0;
+}
+
+/* Must come after the unconditional .groups-sidebar-list rule above —
+   same class, same specificity, so source order decides the tie and this
+   needs to win on mobile/tablet regardless of where it's declared relative
+   to that rule. */
+@media (max-width: 1079px) {
+  .groups-sidebar-list {
+    display: none;
+  }
+}
+
+.group-detail-back {
+  border: none;
+  background: transparent;
+  color: var(--text, #9ca3af);
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 14px;
+}
+
+.group-detail-back:hover {
+  color: var(--text-h, #f5f5f5);
+}
+
+.group-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.group-detail-image {
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  object-fit: cover;
+}
+
+.group-detail-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-h, #f5f5f5);
+  margin: 0;
+}
+
+.edit-btn {
+  border: 1px solid var(--border, #333);
+  background: transparent;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.group-new-duel-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.group-info-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid var(--border, #333);
+  color: var(--text, #9ca3af);
+  font-size: 12px;
+  font-style: italic;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.group-info-icon:hover {
+  border-color: var(--accent-primary, #38bdf8);
+  color: var(--text-h, #f5f5f5);
+}
+
+.group-info-popup {
+  position: fixed;
+  transform: translateX(-50%);
+  z-index: 99999999;
+  width: 240px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--neutral, #121212);
+  border: 1px solid var(--border, #333);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--text, #9ca3af);
+}
+
+.edit-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.group-edit-form {
+  margin-bottom: 16px;
+  max-width: 320px;
+}
+
+.group-edit-form-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.group-detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.group-leave-btn {
+  color: #ff6b6b;
+  border-color: #ff6b6b;
+}
+
+.active-duel-pill {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 16px;
+  margin-bottom: 24px;
+  border-radius: 14px;
+  border: 1px solid var(--accent-primary, #38bdf8);
+  background: var(--neutral, #121212);
+}
+
+.active-duel-pill-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-h, #f5f5f5);
+}
+
+.active-duel-pill-participants {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.active-duel-pill-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.active-duel-pill-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.active-duel-pill-name {
+  flex: 1;
+  font-size: 14px;
+  color: var(--text-h, #f5f5f5);
+  font-weight: 600;
+}
+
+.active-duel-pill-score {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent-primary, #38bdf8);
+}
+
+.active-duel-pill-score-pending {
+  font-weight: 400;
+  color: var(--text, #9ca3af);
+}
+
+.active-duel-pill-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.group-detail-ranking-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-h, #f5f5f5);
+  margin-bottom: 10px;
+}
+
+.group-detail-hint {
+  font-size: 12px;
+  color: var(--text, #9ca3af);
+  margin: -6px 0 10px;
+}
+
+.group-ranking-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.group-ranking-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border, #262626);
+  background: var(--neutral, #121212);
+}
+
+.group-ranking-row-me {
+  border-color: var(--accent-primary, #38bdf8);
+}
+
+.group-ranking-rank {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text, #9ca3af);
+  width: 28px;
+}
+
+.group-ranking-avatar,
+.group-ranking-avatar-fallback {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.group-ranking-avatar-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.group-ranking-name {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--text-h, #f5f5f5);
+  font-weight: 600;
+}
+
+.group-ranking-wins {
+  font-size: 13px;
+  color: var(--text, #9ca3af);
+}

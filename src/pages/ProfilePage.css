@@ -1,0 +1,575 @@
+.profile-page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 24px 20px 60px;
+  /* Now nested inside .app-main's flex column (Sidebar/TopBar shell) rather
+     than sitting directly under #root — flex:1 + min-height:0 lets it take
+     the remaining space below TopBar and scroll internally, same pattern
+     .dashboard/.ranking-board use for the same shell. min-width:0 too: a
+     flex item's default min-width:auto lets its content's intrinsic width
+     (a long duel row's opponent name + ELO badges on one line, in
+     particular) push the whole item — and everything above it in this
+     flex chain — wider than the viewport instead of wrapping/scrolling
+     inside it, which is what actually caused the mobile overflow. */
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.profile-columns,
+.public-profile-columns {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Wide desktop: Amigos/Logros move into a side column next to the main
+   profile content instead of stacking below it. Mobile/tablet keep the
+   original single-column stacked order untouched. */
+@media (min-width: 1080px) {
+  .profile-page {
+    max-width: 1100px;
+  }
+
+  .profile-columns {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    grid-template-areas:
+      'header header'
+      'stats  amigos'
+      'duels  logros'
+      'daily  logros';
+    align-items: start;
+    gap: 24px;
+  }
+
+  .profile-area-header {
+    grid-area: header;
+  }
+  .profile-area-stats {
+    grid-area: stats;
+  }
+  .profile-area-duels {
+    grid-area: duels;
+  }
+  .profile-area-daily {
+    grid-area: daily;
+  }
+  .profile-area-amigos {
+    grid-area: amigos;
+  }
+  .profile-area-logros {
+    grid-area: logros;
+  }
+
+  /* Public (third-party) profile has no Amigos section — Logros takes the
+     whole side column instead of just the bottom two-thirds of it. */
+  .public-profile-columns {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    grid-template-areas:
+      'header header'
+      'stats  logros'
+      'duels  logros'
+      'daily  logros';
+    align-items: start;
+    gap: 24px;
+  }
+
+  .profile-username {
+    font-size: 30px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  /* The sidebar's own "Inicio" nav item covers this now. */
+  .profile-back-link {
+    display: none;
+  }
+
+  /* "Tus amigos" as a compact row list (avatar | name+record | Retar
+     button) instead of the centered card grid, to fit the 360px sidebar
+     column — matches the mockup's Amigos list. Grid placement (not source
+     order) so the existing avatar/name/h2h/button JSX doesn't need to
+     change: name sits top-right of the avatar, h2h record right below it. */
+  .profile-area-amigos .friend-card-grid {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .profile-area-amigos .friend-card {
+    display: grid;
+    grid-template-columns: 36px 1fr auto;
+    grid-template-rows: auto auto;
+    align-items: center;
+    column-gap: 10px;
+    padding: 8px 10px;
+    border-radius: 10px;
+  }
+
+  .profile-area-amigos .friend-card-avatar,
+  .profile-area-amigos .friend-card-avatar-fallback {
+    grid-row: 1 / 3;
+    grid-column: 1;
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+  }
+
+  .profile-area-amigos .friend-card-name {
+    grid-row: 1;
+    grid-column: 2;
+    text-align: left;
+    font-size: 13px;
+  }
+
+  .profile-area-amigos .friend-card-h2h {
+    grid-row: 2;
+    grid-column: 2;
+    font-size: 11px;
+  }
+
+  .profile-area-amigos .friend-card-btn {
+    grid-row: 1 / 3;
+    grid-column: 3;
+    width: auto;
+    margin-top: 0;
+    padding: 6px 12px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+}
+
+.profile-page,
+.profile-duel-list {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border, #262626) transparent;
+}
+
+.profile-page::-webkit-scrollbar,
+.profile-duel-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.profile-page::-webkit-scrollbar-track,
+.profile-duel-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.profile-page::-webkit-scrollbar-thumb,
+.profile-duel-list::-webkit-scrollbar-thumb {
+  background: var(--border, #262626);
+  border-radius: 999px;
+}
+
+.profile-page::-webkit-scrollbar-thumb:hover,
+.profile-duel-list::-webkit-scrollbar-thumb:hover {
+  background: var(--text, #9ca3af);
+}
+
+.profile-back-link {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 20;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--border, #262626);
+  background: var(--neutral, #121212);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  color: var(--accent-primary, #38bdf8);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.profile-back-link:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 20px 0 32px;
+}
+
+.profile-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-avatar-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-primary, #38bdf8);
+  font-size: 28px;
+}
+
+.profile-avatar-wrap {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  flex: 0 0 auto;
+  border: none;
+  padding: 0;
+  background: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.profile-avatar-edit-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.profile-avatar-wrap:hover .profile-avatar-edit-overlay,
+.profile-avatar-wrap:focus-visible .profile-avatar-edit-overlay {
+  opacity: 1;
+}
+
+.profile-avatar-modal {
+  max-width: 380px;
+}
+
+.profile-avatar-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.profile-avatar-url-input {
+  width: 100%;
+}
+
+.profile-avatar-form-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.profile-header-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.profile-username {
+  margin: 0;
+  font-size: 24px;
+  color: var(--text-h, #f5f5f5);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-rank-status {
+  margin: 0 0 2px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text, #9ca3af);
+}
+
+.profile-username-edit-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px;
+  border-radius: 6px;
+}
+
+.profile-username-edit-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.profile-username-edit {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.profile-username-input {
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border, #262626);
+  background: var(--neutral, #121212);
+  color: var(--text-h, #f5f5f5);
+  font-size: 16px;
+  min-width: 0;
+}
+
+.profile-section {
+  margin-bottom: 32px;
+}
+
+.profile-section-title {
+  font-size: 16px;
+  margin: 0 0 14px;
+  color: var(--text-h, #f5f5f5);
+}
+
+.profile-friend-search {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.profile-search-input {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border, #262626);
+  background: var(--neutral, #121212);
+  color: var(--text-h, #f5f5f5);
+  font-size: 14px;
+}
+
+.profile-search-status {
+  font-size: 13px;
+  margin: 0 0 14px;
+}
+
+.profile-search-status-ok {
+  color: #22c55e;
+}
+
+.profile-search-status-error {
+  color: #ef4444;
+}
+
+.profile-friend-group {
+  margin-bottom: 18px;
+}
+
+.profile-search-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.profile-search-pagination .primary-btn {
+  font-size: 13px;
+  padding: 8px 14px;
+}
+
+.profile-search-pagination .primary-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.profile-search-page-label {
+  font-size: 13px;
+  color: var(--text, #9ca3af);
+  white-space: nowrap;
+}
+
+.profile-friend-group-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text, #9ca3af);
+  margin-bottom: 8px;
+}
+
+.profile-friend-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.profile-friend-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border, #262626);
+  background: var(--neutral, #121212);
+  color: var(--text-h, #f5f5f5);
+  font-size: 14px;
+}
+
+.profile-friend-name-link {
+  color: var(--text-h, #f5f5f5);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.profile-friend-name-link:hover {
+  color: var(--accent-primary, #38bdf8);
+  text-decoration: underline;
+}
+
+.profile-friend-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.profile-friend-pending {
+  color: var(--text, #9ca3af);
+  font-size: 13px;
+}
+
+.profile-empty-text {
+  color: var(--text, #9ca3af);
+  font-size: 14px;
+}
+
+.friend-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.friend-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 16px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border, #262626);
+  background: var(--neutral, #121212);
+  text-align: center;
+}
+
+.friend-card-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.friend-card-avatar-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-primary, #38bdf8);
+  font-size: 24px;
+}
+
+.friend-card-name {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text-h, #f5f5f5);
+}
+
+.friend-card-h2h {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.friend-card-h2h-wins {
+  color: #22c55e;
+}
+
+.friend-card-h2h-losses {
+  color: #ef4444;
+}
+
+.friend-card-h2h-sep {
+  color: var(--text, #9ca3af);
+  margin: 0 2px;
+}
+
+.friend-card-h2h-empty {
+  color: var(--text, #9ca3af);
+  font-weight: 400;
+}
+
+.friend-card-btn {
+  margin-top: 4px;
+  width: 100%;
+  font-size: 12px;
+  padding: 8px 10px;
+  white-space: normal;
+}
+
+.profile-pending-toggle {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.profile-duel-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 360px;
+  overflow-y: auto;
+}
+
+.profile-duel-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border, #262626);
+  background: var(--neutral, #121212);
+  color: var(--text-h, #f5f5f5);
+  font-size: 14px;
+}
+
+.profile-duel-row-clickable {
+  cursor: pointer;
+}
+
+.profile-duel-row-clickable:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.profile-duel-opponent {
+  font-weight: 600;
+  flex: 1;
+}
+
+.profile-duel-name-won {
+  color: #22c55e;
+}
+
+.profile-duel-name-lost {
+  color: #b91c1c;
+}
+
+.daily-mode-tag {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text, #9ca3af);
+}
+
+.daily-mode-tag-timed {
+  background: rgba(0, 122, 255, 0.15);
+  color: var(--accent-primary, #38bdf8);
+}
+
+.profile-duel-score {
+  color: var(--text, #9ca3af);
+}

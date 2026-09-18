@@ -1,0 +1,137 @@
+.stats-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.stats-block-legend {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11px;
+  color: var(--text, #74839a);
+}
+
+.stats-block-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.stats-block-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+}
+
+.stats-block-dot-win {
+  background: var(--win, #4da3ff);
+}
+
+.stats-block-dot-tie {
+  background: var(--tie, #8d9daf);
+}
+
+.stats-block-dot-loss {
+  background: var(--loss, #ff6b6b);
+}
+
+.stats-block-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stats-block-card {
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border, #262626);
+  background: var(--neutral, #121212);
+}
+
+.stats-block-card-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.stats-block-card-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-h, #f5f5f5);
+}
+
+.stats-block-card-total {
+  font-size: 11px;
+  color: var(--text, #74839a);
+  white-space: nowrap;
+}
+
+.stats-block-bar {
+  display: flex;
+  gap: 2px;
+  height: 6px;
+  margin-bottom: 12px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.stats-block-bar-win {
+  background: var(--win, #4da3ff);
+}
+
+.stats-block-bar-tie {
+  background: var(--tie, #8d9daf);
+}
+
+.stats-block-bar-loss {
+  background: var(--loss, #ff6b6b);
+}
+
+.stats-block-numbers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.stats-block-number-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stats-block-number {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.stats-block-number-win {
+  color: var(--win, #4da3ff);
+}
+
+.stats-block-number-tie {
+  color: var(--tie, #8d9daf);
+}
+
+.stats-block-number-loss {
+  color: var(--loss, #ff6b6b);
+}
+
+.stats-block-number-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text, #74839a);
+}

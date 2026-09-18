@@ -1,0 +1,42 @@
+.ranking-page {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 24px 20px 60px;
+  height: 100svh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border, #262626) transparent;
+}
+
+.ranking-page::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ranking-page::-webkit-scrollbar-thumb {
+  background: var(--border, #262626);
+  border-radius: 999px;
+}
+
+.ranking-back-link {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 20;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--border, #262626);
+  background: var(--neutral, #121212);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  color: var(--accent-primary, #38bdf8);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.ranking-back-link:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.ranking-page .ranking-page-cards {
+  margin-top: 40px;
+}

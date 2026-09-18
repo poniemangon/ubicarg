@@ -1,0 +1,1846 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100svh;
+  width: 100%;
+}
+
+.app-shell {
+  height: 100svh;
+  width: 100%;
+}
+
+.app-shell-content {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  transition: filter 0.15s ease;
+}
+
+.app-shell-blurred {
+  filter: blur(6px);
+  pointer-events: none;
+}
+
+.auth-gate-modal {
+  max-width: 340px;
+  text-align: center;
+}
+
+.auth-gate-modal .primary-btn {
+  width: 100%;
+}
+
+.ban-gate-modal .calendar-modal-header {
+  position: relative;
+  justify-content: center;
+  text-align: center;
+}
+
+.ban-gate-modal .calendar-close {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+.ban-gate-text {
+  text-align: center;
+  margin: 12px 0 22px;
+}
+
+.app-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.sidebar {
+  flex-shrink: 0;
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 12px;
+  gap: 20px;
+  background: var(--neutral, #121212);
+  border-right: 1px solid var(--border, #262626);
+  overflow-y: auto;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text-h, #f5f5f5);
+  font-size: 13px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sidebar-nav-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-nav-item-active,
+.sidebar-nav-item-active:hover {
+  background: rgba(0, 122, 255, 0.14);
+  color: var(--accent-primary, #38bdf8);
+}
+
+.sidebar-nav-item:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.sidebar-nav-item:disabled:hover {
+  background: transparent;
+}
+
+.sidebar-nav-icon {
+  font-size: 16px;
+}
+
+.sidebar-nav-item-special {
+  flex-wrap: wrap;
+}
+
+.sidebar-nav-item-special .menu-item-eyebrow {
+  width: 100%;
+  padding-left: 26px;
+}
+
+.sidebar-top-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sidebar-profile-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+  text-align: left;
+  flex: 1;
+  min-width: 0;
+}
+
+.sidebar-bell-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.sidebar-bell-btn {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.sidebar-bell-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-bell-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 3px;
+  border-radius: 999px;
+  background: #ef4444;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: center;
+}
+
+.sidebar-notif-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 99999999;
+}
+
+.sidebar-notif-panel {
+  /* Fixed (not absolute inside .sidebar, which has overflow-y:auto and
+     therefore clips overflow-x too) and positioned via inline style from
+     the bell's actual on-screen rect, so it always renders fully visible
+     instead of being cut off by the sidebar's own bounding box. Max
+     z-index so nothing else (modals, popups) can ever render on top of it.
+     max-width caps it on narrow viewports (same pattern as
+     .elo-info-icon-tooltip) instead of only shifting left, which still let
+     a 260px-wide panel overflow a viewport narrower than ~284px. */
+  position: fixed;
+  z-index: 99999999;
+  width: 260px;
+  max-width: calc(100vw - 24px);
+  max-height: 320px;
+  overflow-y: auto;
+  background: var(--neutral, #1c1c1c);
+  border: 1px solid var(--border, #262626);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.sidebar-notif-empty {
+  padding: 14px;
+  font-size: 13px;
+  color: var(--text, #9ca3af);
+  margin: 0;
+}
+
+.sidebar-notif-list {
+  list-style: none;
+  margin: 0;
+  padding: 4px;
+}
+
+.sidebar-notif-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-h, #f5f5f5);
+  padding: 8px 10px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sidebar-notif-row:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.sidebar-notif-row-unread {
+  background: rgba(0, 122, 255, 0.1);
+}
+
+.sidebar-notif-text {
+  font-size: 13px;
+  overflow-wrap: break-word;
+}
+
+.sidebar-notif-time {
+  font-size: 11px;
+  color: var(--text, #9ca3af);
+}
+
+.sidebar-profile-row:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-profile-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.sidebar-profile-avatar-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-primary, #38bdf8);
+  font-size: 18px;
+}
+
+.sidebar-profile-info {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.sidebar-profile-name {
+  color: var(--text-h, #f5f5f5);
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-profile-link {
+  color: var(--accent-primary, #38bdf8);
+  font-size: 12px;
+}
+
+.sidebar-profile-info .elo-badge {
+  margin: 1px 0;
+}
+
+.rank-status-none {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 1px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text, #9ca3af);
+}
+
+.rank-status-info-wrap {
+  display: inline-flex;
+  outline: none;
+}
+
+.rank-status-info {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--text-h, #f5f5f5);
+  font-size: 10px;
+  font-weight: 700;
+  font-style: italic;
+  font-family: Georgia, 'Times New Roman', serif;
+  cursor: help;
+  transition: background 0.15s ease;
+}
+
+.rank-status-info-wrap:hover .rank-status-info,
+.rank-status-info-wrap:focus-visible .rank-status-info {
+  background: var(--accent-primary, #38bdf8);
+  color: #fff;
+}
+
+.rank-status-tooltip {
+  position: absolute;
+  left: -36px;
+  right: -4px;
+  top: 100%;
+  margin-top: 6px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border, #333);
+  background: var(--neutral, #1a1a1a);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text-h, #f5f5f5);
+  text-align: left;
+  white-space: normal;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease;
+  pointer-events: none;
+  z-index: 99999999;
+}
+
+/* open/close is JS-driven (see RankStatus.jsx) — a pointer over either the
+   icon or the tooltip itself keeps it open, with a 300ms grace period on
+   leaving either one before it actually closes. */
+.rank-status-tooltip-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.rank-status-tooltip a {
+  color: var(--accent-secondary, #ffd60a);
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+/* Same hover/tooltip mechanism as .rank-status-info-wrap above, but this one
+   carries the full ELO explainer (paragraphs + tier list) and shows up
+   outside the sidebar's narrow column (ranking page, dashboard preview) —
+   fixed + JS-computed coordinates (see EloInfoIcon.jsx) instead of a
+   CSS-anchored absolute box, since this icon trails a heading whose wrap
+   point varies with card width; a fixed left/right anchor would overflow
+   the viewport in one context or the other. */
+.elo-info-icon-wrap {
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+  outline: none;
+}
+
+.elo-info-icon-tooltip {
+  position: fixed;
+  width: 260px;
+  max-width: min(260px, calc(100vw - 16px));
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border, #333);
+  background: var(--neutral, #1a1a1a);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--text, #9ca3af);
+  text-align: left;
+  z-index: 99999999;
+  /* white-space is inherited — on the dashboard this sits inside
+     .ranking-preview-title, which sets nowrap on its own compact heading.
+     Being position:fixed only escapes layout, not the DOM tree, so without
+     this reset the tooltip's paragraph inherited nowrap too and refused to
+     wrap, spilling way past the box's own edge instead. */
+  white-space: normal;
+}
+
+.elo-info-icon-tooltip-title {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 700;
+  color: var(--text-h, #f5f5f5);
+}
+
+.elo-info-icon-tooltip p {
+  margin: 0 0 8px;
+}
+
+.elo-info-icon-tooltip p:last-of-type {
+  margin-bottom: 0;
+}
+
+.elo-info-icon-tooltip a {
+  color: var(--accent-secondary, #ffd60a);
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.sidebar-signup-btn {
+  margin-top: auto;
+  width: 100%;
+}
+
+.sidebar-logout-btn {
+  margin-top: auto;
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--border, #262626);
+  background: transparent;
+  color: var(--text, #9ca3af);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.sidebar-logout-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-h, #f5f5f5);
+}
+
+.topbar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--border, #262626);
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.topbar-logo {
+  height: 28px;
+  width: 28px;
+}
+
+.topbar-title {
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 28px;
+  color: var(--text-h, #f5f5f5);
+}
+
+.topbar-title-accent {
+  color: var(--accent-primary, #38bdf8);
+}
+
+.topbar-burger {
+  display: none;
+  font-size: 20px;
+  line-height: 1;
+  border: none;
+  background: transparent;
+  color: var(--text-h, #f5f5f5);
+  cursor: pointer;
+  padding: 4px;
+}
+
+.sidebar-backdrop {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .topbar-burger {
+    display: block;
+  }
+
+  .sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 50;
+    transform: translateX(-100%);
+    transition: transform 0.2s ease;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.5);
+  }
+
+  .sidebar.sidebar-open {
+    transform: translateX(0);
+  }
+
+  .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 45;
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .dashboard-daily-card {
+    order: 1;
+  }
+
+  .ranking-preview-cards {
+    order: 2;
+  }
+
+  .dashboard-grid {
+    order: 3;
+  }
+}
+
+.loading-screen {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text, #9ca3af);
+  font-size: 14px;
+  padding: 20px;
+  text-align: center;
+}
+
+.credits-bar {
+  position: relative;
+  flex-shrink: 0;
+  margin-top: auto;
+  padding: 6px 20px;
+  font-size: 10px;
+  text-align: center;
+  color: var(--text, #9ca3af);
+  background: var(--bg, #000);
+}
+
+.credits-link {
+  border: none;
+  background: transparent;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.social-option svg {
+  margin-right: 6px;
+}
+
+.socials-modal {
+  width: 100%;
+  max-width: 260px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 14px;
+  border: 1px solid var(--border, #333);
+  background: var(--neutral, #121212);
+  padding: 14px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+  text-align: left;
+  font-size: 14px;
+}
+
+.register-popup-modal {
+  position: relative;
+  max-width: 320px;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.register-popup-image {
+  width: 100%;
+  max-width: 220px;
+  border-radius: 10px;
+}
+
+.post-daily-popup-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border: none;
+  background: transparent;
+  color: var(--text, #9ca3af);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 2px 6px;
+}
+
+.post-daily-popup-close:hover {
+  color: var(--text-h, #f5f5f5);
+}
+
+.post-daily-popup-title {
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--text-h, #f5f5f5);
+  margin: 0;
+}
+
+.round-result-modal {
+  max-width: 300px;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+}
+
+.round-result-points {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--accent-primary, #38bdf8);
+}
+
+.round-result-distance {
+  font-size: 14px;
+  color: var(--text, #9ca3af);
+}
+
+.round-result-btn {
+  width: 100%;
+  border-radius: 999px;
+}
+
+.confirm-guess-btn {
+  border-radius: 999px;
+}
+
+.special-suggest-text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-h, #f5f5f5);
+}
+
+.tutorial-popup .custom-modal-header span {
+  flex: 1;
+  font-size: 19px;
+  text-align: center;
+}
+
+.tutorial-popup-text {
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.special-suggest-text a {
+  color: var(--accent-secondary, #ffd60a);
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.social-option {
+  display: block;
+  padding: 10px 12px;
+  margin-top: 6px;
+  border-radius: 8px;
+  border: 1px solid var(--border, #333);
+  color: var(--text-h, #f5f5f5);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.social-option:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.hud {
+  padding: 12px 20px;
+  background: var(--bg, #fff);
+  border-bottom: 1px solid var(--border, #e5e4e7);
+  flex-shrink: 0;
+}
+
+.hud-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--text, #6b6375);
+  margin-bottom: 6px;
+}
+
+.round-label {
+  font-weight: 600;
+}
+
+.duel-timer {
+  font-weight: 700;
+  color: var(--accent-primary, #38bdf8);
+}
+
+.duel-timer-urgent {
+  color: #ef4444;
+}
+
+.menu-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.menu-btn {
+  font-size: 16px;
+  font-weight: 700;
+  padding: 9px 20px;
+  border-radius: 999px;
+  border: 1px solid var(--border, #444);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-h, #f5f5f5);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.menu-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.menu-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 99999999;
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+  padding: 8px;
+  border-radius: 12px;
+  border: 1px solid var(--border, #444);
+  background: var(--neutral, #121212);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.menu-item {
+  font-size: 16px;
+  font-weight: 600;
+  text-align: left;
+  padding: 12px 14px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-h, #f5f5f5);
+  cursor: pointer;
+}
+
+.menu-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.menu-item-special {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.menu-item-eyebrow {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--accent-secondary, #ffd60a);
+}
+
+.menu-copied {
+  align-self: center;
+  margin-left: 8px;
+  font-size: 12px;
+  color: var(--text, #9ca3af);
+  white-space: nowrap;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 99999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+}
+
+.calendar-modal {
+  width: 100%;
+  max-width: 320px;
+  border-radius: 14px;
+  border: 1px solid var(--border, #333);
+  background: var(--neutral, #121212);
+  padding: 14px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+}
+
+.calendar-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-h, #f5f5f5);
+}
+
+.calendar-close {
+  border: none;
+  background: transparent;
+  color: var(--text, #9ca3af);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 2px 6px;
+}
+
+.calendar-close:hover {
+  color: var(--text-h, #f5f5f5);
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.calendar-nav {
+  border: none;
+  background: transparent;
+  color: var(--text-h, #f5f5f5);
+  font-size: 18px;
+  line-height: 1;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.calendar-nav:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.calendar-month-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-h, #f5f5f5);
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 4px;
+}
+
+.calendar-weekdays span {
+  text-align: center;
+  font-size: 11px;
+  color: var(--text, #9ca3af);
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.calendar-cell {
+  position: relative;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-h, #f5f5f5);
+  cursor: pointer;
+}
+
+.calendar-cell.empty {
+  cursor: default;
+}
+
+.calendar-cell:not(.empty):not(.disabled):hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.calendar-cell.today {
+  border: 1px solid var(--accent-primary, #38bdf8);
+}
+
+.calendar-cell.disabled {
+  color: var(--text, #4b5563);
+  cursor: not-allowed;
+}
+
+.calendar-dot {
+  position: absolute;
+  bottom: 4px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent-primary, #38bdf8);
+}
+
+.custom-modal {
+  width: 100%;
+  max-width: 480px;
+  max-height: 80svh;
+  display: flex;
+  flex-direction: column;
+  border-radius: 14px;
+  border: 1px solid var(--border, #333);
+  background: var(--neutral, #121212);
+  padding: 14px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+}
+
+.custom-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-h, #f5f5f5);
+}
+
+.deselect-all-btn {
+  align-self: flex-start;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 12px;
+  margin-bottom: 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border, #333);
+  background: transparent;
+  color: var(--text-h, #f5f5f5);
+  cursor: pointer;
+}
+
+.deselect-all-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.barrios-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 4px;
+  margin-bottom: 12px;
+}
+
+.barrio-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.barrio-chip {
+  border: 1.5px solid var(--accent-primary, #38bdf8);
+  color: var(--accent-primary, #38bdf8);
+  background: transparent;
+  border-radius: 999px;
+  padding: 6px 13px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.barrio-chip.selected {
+  background: var(--accent-primary, #38bdf8);
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.start-custom-btn {
+  width: 100%;
+}
+
+.duel-setup-section {
+  margin-bottom: 16px;
+}
+
+.duel-setup-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text, #9ca3af);
+  margin-bottom: 8px;
+}
+
+.duel-friend-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.duel-friend-chip {
+  border: 1.5px solid var(--accent-primary, #38bdf8);
+  color: var(--accent-primary, #38bdf8);
+  background: transparent;
+  border-radius: 999px;
+  padding: 6px 13px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.duel-friend-chip.selected {
+  background: var(--accent-primary, #38bdf8);
+  color: #fff;
+}
+
+.duel-type-toggle {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.duel-type-btn {
+  flex: 1;
+  border: 1.5px solid var(--border, #262626);
+  color: var(--text-h, #f5f5f5);
+  background: transparent;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.duel-type-btn.selected {
+  border-color: var(--accent-primary, #38bdf8);
+  background: rgba(0, 122, 255, 0.15);
+}
+
+.duel-setup-hint {
+  font-size: 12px;
+  color: var(--text, #9ca3af);
+  margin: 6px 0 0;
+}
+
+.duel-choice-modal {
+  padding: 16px;
+  gap: 12px;
+}
+
+.duel-choice-option {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid var(--border, #262626);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-h, #f5f5f5);
+  cursor: pointer;
+  text-align: left;
+}
+
+.duel-choice-option:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.duel-choice-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.duel-choice-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.duel-choice-title {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.duel-choice-desc {
+  font-size: 12px;
+  color: var(--text, #9ca3af);
+}
+
+.duel-result-panel {
+  border: 1px solid var(--border, #e5e4e7);
+  border-radius: 10px;
+  padding: 14px;
+  margin: 0 0 12px;
+  text-align: center;
+}
+
+.duel-result-vs {
+  display: flex;
+  justify-content: space-around;
+  font-weight: 700;
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+
+.duel-result-verdict {
+  font-weight: 700;
+}
+
+.duel-result-waiting {
+  margin: 0 0 10px;
+  color: var(--text, #9ca3af);
+}
+
+.duel-result-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.duel-leaderboard-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.duel-leaderboard {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.duel-leaderboard-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border, #e5e4e7);
+}
+
+.duel-leaderboard-row-me {
+  border-color: var(--accent-primary, #38bdf8);
+  background: rgba(0, 122, 255, 0.1);
+}
+
+.duel-leaderboard-rank {
+  font-weight: 700;
+  color: var(--text, #9ca3af);
+  width: 28px;
+}
+
+.duel-leaderboard-name {
+  flex: 1;
+  text-align: left;
+  font-weight: 600;
+}
+
+.duel-player-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.duel-player-link:hover {
+  color: var(--accent-primary, #38bdf8);
+  text-decoration: underline;
+}
+
+.duel-leaderboard-score {
+  font-weight: 700;
+}
+
+.score-label {
+  font-weight: 600;
+}
+
+.prompt {
+  font-size: 18px;
+  color: var(--text-h, #08060d);
+}
+
+.prompt strong {
+  color: var(--accent-primary, #38bdf8);
+}
+
+.prompt strong.special {
+  color: var(--accent-secondary, #ffd60a);
+}
+
+.eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent-secondary, #ffd60a);
+  margin-bottom: 2px;
+}
+
+.special-image-reopen {
+  margin-left: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--accent-secondary, #ffd60a);
+  background: transparent;
+  color: var(--accent-secondary, #ffd60a);
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.special-image-reopen:hover {
+  background: rgba(234, 179, 8, 0.12);
+}
+
+.special-image-modal {
+  position: relative;
+  max-width: min(90vw, 500px);
+  max-height: 85svh;
+  border-radius: 14px;
+  border: 1px solid var(--border, #333);
+  background: var(--neutral, #121212);
+  padding: 10px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+}
+
+.special-image-modal img {
+  display: block;
+  max-width: 100%;
+  max-height: calc(85svh - 20px);
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.special-image-modal .calendar-close {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: var(--neutral, #121212);
+  border: 1px solid var(--border, #333);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+}
+
+.dashboard {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 28px;
+}
+
+.dashboard-columns {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Wide desktop: the ranking widget moves beside the daily card/mode grid
+   instead of stacking between them. 1080px leaves enough room after the
+   220px sidebar for a 380px ranking column without cramping the main
+   content. Named areas (rather than DOM order) place the daily card and
+   mode grid in the left column while the ranking widget spans both rows on
+   the right — DOM order stays daily-card, ranking, mode-grid, so mobile
+   (no grid, plain stacking) shows the ranking widget between them instead
+   of below everything. */
+@media (min-width: 1080px) {
+  .dashboard-columns {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 380px;
+    grid-template-areas: 'hero ranking' 'grid ranking';
+    align-items: start;
+    gap: 28px;
+  }
+
+  .dashboard-daily-card {
+    grid-area: hero;
+    margin-bottom: 0;
+  }
+
+  .dashboard-grid {
+    grid-area: grid;
+    margin-bottom: 0;
+  }
+
+  .ranking-preview-cards {
+    grid-area: ranking;
+  }
+}
+
+.dashboard-daily-card {
+  padding: 24px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(0, 122, 255, 0.18), rgba(0, 122, 255, 0.04));
+  border: 1px solid var(--accent-primary, #38bdf8);
+  margin-bottom: 24px;
+}
+
+.dashboard-daily-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent-primary, #38bdf8);
+  margin-bottom: 6px;
+}
+
+.dashboard-daily-title {
+  margin: 0 0 8px;
+  font-size: 34px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--text-h, #f5f5f5);
+}
+
+.dashboard-daily-text {
+  margin: 0 0 16px;
+  color: var(--text, #9ca3af);
+  font-size: 14px;
+  max-width: 480px;
+}
+
+.dashboard-daily-btn {
+  border-radius: 999px;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.dashboard-mode-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 18px;
+  border-radius: 14px;
+  border: 1px solid var(--border, #262626);
+  background: var(--neutral, #121212);
+  color: var(--text-h, #f5f5f5);
+  text-align: left;
+  cursor: pointer;
+}
+
+.dashboard-mode-card:hover {
+  border-color: var(--accent-primary, #38bdf8);
+}
+
+.dashboard-signup-card {
+  cursor: default;
+  width: 100%;
+}
+
+.dashboard-signup-card-btn {
+  margin-top: 4px;
+}
+
+.dashboard-mode-icon {
+  font-size: 24px;
+}
+
+.dashboard-mode-title {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.dashboard-mode-desc {
+  font-size: 12px;
+  color: var(--text, #9ca3af);
+}
+
+.map-wrap {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Active-play screen only (phase 'guessing'/'revealed') — the hud/controls
+   float as translucent rounded boxes over a full-bleed map instead of
+   sitting in normal flow above/below it, matching the desktop mockup. The
+   game-over/results screen renders its own separate JSX branch that never
+   gets a .game-screen ancestor, so these rules can't reach it — no need to
+   fight .controls-gameover's own overrides. */
+.game-screen {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+.game-screen .map-wrap {
+  position: absolute;
+  inset: 0;
+}
+
+.game-screen .hud {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  z-index: 5;
+  border-radius: 14px;
+  border: 1px solid var(--border, #262626);
+  background: rgba(13, 19, 29, 0.86);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  /* Nothing inside the hud is interactive except the optional "Ver imagen"
+     button, which opts itself back in — everywhere else, a tap should
+     reach the map underneath to place a guess. */
+  pointer-events: none;
+}
+
+.game-screen .hud .special-image-reopen {
+  pointer-events: auto;
+}
+
+/* Results (game-over) screen — display:contents on mobile/tablet keeps
+   today's exact stacked layout (map above, breakdown/actions panel below,
+   both direct flex items of .app-main's column). On wide desktop it becomes
+   a real flex row so the breakdown/actions panel sits beside the map as a
+   fixed-width side panel, matching the mockup's aside — none of the mode-
+   specific breakdown/leaderboard/action JSX inside .controls-gameover
+   needs to change, just where the panel sits. */
+.result-screen {
+  display: contents;
+}
+
+@media (min-width: 1080px) {
+  .result-screen {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .result-screen .map-wrap {
+    flex: 1;
+  }
+
+  .result-screen .controls-gameover {
+    width: 420px;
+    flex-shrink: 0;
+    max-height: none;
+    border-top: none;
+    border-left: 1px solid var(--border, #262626);
+    background: var(--neutral, #17202e);
+  }
+}
+
+.game-screen .controls {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 5;
+  border-radius: 999px;
+  border: 1px solid var(--border, #262626);
+  background: rgba(13, 19, 29, 0.86);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.map-wrap-dimmed .map {
+  filter: blur(6px) brightness(0.45);
+}
+
+.final-score-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  text-align: center;
+}
+
+.final-score-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.final-score-close:hover {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.final-score-reopen {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border, #444);
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.final-score-reopen:hover {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.final-score-label {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.final-score-value {
+  font-size: 64px;
+  font-weight: 800;
+  line-height: 1.1;
+  color: #fff;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.7);
+}
+
+.final-score-max {
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.map {
+  height: 100%;
+  width: 100%;
+  cursor: crosshair;
+}
+
+.controls {
+  flex-shrink: 0;
+  padding: 14px 20px;
+  border-top: 1px solid var(--border, #e5e4e7);
+  background: var(--bg, #fff);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.hint {
+  font-size: 13px;
+  color: var(--text, #6b6375);
+}
+
+.comment-hint {
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: var(--text, #9ca3af);
+  text-align: center;
+}
+
+.add-comment-link {
+  display: block;
+  width: 100%;
+  margin: 4px 0 12px;
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent-primary, #38bdf8);
+  text-align: center;
+  cursor: pointer;
+}
+
+.add-comment-link:hover {
+  text-decoration: underline;
+}
+
+.comment-hint-link {
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  font-size: 13px;
+  color: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.result {
+  font-size: 15px;
+  color: var(--text, #6b6375);
+}
+
+.result {
+  font-weight: 600;
+  color: var(--text-h, #08060d);
+}
+
+.primary-btn {
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 24px;
+  border-radius: 999px;
+  border: none;
+  background: var(--accent-primary, #38bdf8);
+  color: #fff;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-inverted {
+  background: #fff;
+  color: var(--accent-primary, #38bdf8);
+}
+
+.btn-inverted:not(:disabled):hover {
+  background: #e6e6e6;
+}
+
+.btn-outlined {
+  background: transparent;
+  border: 1px solid var(--accent-primary, #38bdf8);
+  color: var(--accent-primary, #38bdf8);
+}
+
+.btn-outlined:not(:disabled):hover {
+  background: rgba(0, 122, 255, 0.1);
+}
+
+.primary-btn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.primary-btn:not(:disabled):hover {
+  background: #0284c7;
+}
+
+.controls-gameover {
+  flex-direction: column;
+  align-items: stretch;
+  max-height: 45svh;
+  overflow-y: auto;
+}
+
+.gameover-actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 12px;
+}
+
+@media (max-width: 600px) {
+  .gameover-actions {
+    flex-direction: column;
+  }
+
+  .duel-result-actions {
+    flex-direction: column;
+  }
+}
+
+.gameover-actions .primary-btn {
+  flex: 1;
+}
+
+.secondary-btn {
+  background: transparent;
+  border: 1px solid var(--border, #e5e4e7);
+  color: var(--text-h, #08060d);
+}
+
+.secondary-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.breakdown {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px;
+  text-align: left;
+  border: 1px solid var(--border, #e5e4e7);
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.breakdown li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--border, #e5e4e7);
+}
+
+.breakdown li:last-child {
+  border-bottom: none;
+}
+
+.breakdown-streets {
+  color: var(--text-h, #08060d);
+}
+
+.breakdown-detail {
+  color: var(--text, #6b6375);
+  white-space: nowrap;
+}
+
+.round-tooltip {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 1px 6px;
+  background: #fff;
+  color: #111827;
+  border-radius: 4px;
+  white-space: nowrap;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.elo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.elo-badge-icon {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+.elo-bronze {
+  color: #cd7f32;
+}
+.elo-bronze .elo-badge-icon {
+  fill: #cd7f32;
+}
+
+.elo-silver {
+  color: #9ca3af;
+}
+.elo-silver .elo-badge-icon {
+  fill: #c0c0c0;
+}
+
+.elo-gold {
+  color: #b8860b;
+}
+.elo-gold .elo-badge-icon {
+  fill: #ffd700;
+}
+
+.elo-platinum {
+  color: #6b7280;
+}
+.elo-platinum .elo-badge-icon {
+  fill: #9ca3af;
+}
+
+.elo-master {
+  color: #8b5cf6;
+}
+.elo-master .elo-badge-icon {
+  fill: #8b5cf6;
+}
+
+.elo-grandmaster {
+  color: #ef4444;
+}
+.elo-grandmaster .elo-badge-icon {
+  fill: #ef4444;
+}
+
+.elo-info-list {
+  list-style: none;
+  margin: 12px 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.elo-info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border: 1px solid var(--border, #e5e4e7);
+  border-radius: 8px;
+}
+
+.elo-info-tier {
+  font-size: 0.95em;
+  gap: 6px;
+}
+
+.elo-info-tier .elo-badge-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.elo-info-range {
+  font-size: 0.85em;
+  color: var(--text, #6b6375);
+}
