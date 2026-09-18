@@ -6,7 +6,6 @@ export default function Dashboard({
   onPractice,
   onOpenArchive,
   onOpenCustom,
-  onSpecialOnly,
   onDuel,
   onMultiplayerDuel,
   onOpenAuth,
@@ -43,12 +42,6 @@ export default function Dashboard({
             <span className="dashboard-mode-title">Personalizada</span>
             <span className="dashboard-mode-desc">Elegí provincias específicas para jugar.</span>
           </button>
-          <button type="button" className="dashboard-mode-card dashboard-mode-card-special" onClick={onSpecialOnly}>
-            <span className="dashboard-mode-icon">✨</span>
-            <span className="dashboard-mode-title">Especiales</span>
-            <span className="dashboard-mode-desc">Solo ubicaciones únicas: monumentos, lugares históricos y más.</span>
-          </button>
-
           {isSignedIn && (
             <>
               <button type="button" className="dashboard-mode-card" onClick={onDuel}>

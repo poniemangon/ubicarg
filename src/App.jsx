@@ -1279,8 +1279,10 @@ function App() {
   // Same signed-out treatment as handlePractice — capped at one a day, per
   // session-persisted result — except "custom" actually covers two distinct
   // guest allowances tracked separately: a plain custom-provincia game and a
-  // special-locations-only one (handleSpecialOnly below), told apart by
-  // isAllSpecialSelection since both funnel through this same function.
+  // special-locations-only one, told apart by isAllSpecialSelection since
+  // both funnel through this same function (no dedicated dashboard entry
+  // point for the special-only one currently — only reachable if a custom
+  // selection happens to be all comuna = 0 provincias).
   const handleStartCustom = (selectedProvinciaIds) => {
     const isSpecial = isAllSpecialSelection(selectedProvinciaIds, provincias)
     if (!isSignedIn) {
@@ -1322,11 +1324,6 @@ function App() {
   // cap, no persistence — freely replayable, same as it always was.
   const handleSelectArchiveDay = (dayNumber) => {
     startGame(tranquiRoundIndicesForDay(dayNumber), 'archive', { copyInvite: true })
-  }
-
-  const handleSpecialOnly = () => {
-    const specialProvinciaIds = provincias.filter((b) => b.comuna === 0).map((b) => b.provincia_id)
-    handleStartCustom(specialProvinciaIds)
   }
 
   // "Duelo rankeado": instant random matchmaking, affects ELO — just an
@@ -2260,7 +2257,6 @@ function App() {
         onPractice={handlePractice}
         onOpenArchive={() => setArchiveOpen(true)}
         onOpenCustom={handleOpenCustom}
-        onSpecialOnly={handleSpecialOnly}
         onDuel={openRankedDuel}
         onMultiplayerDuel={openDuelChoice}
         onOpenAuth={openSignUp}
