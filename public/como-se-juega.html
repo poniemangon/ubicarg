@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cómo se juega — UbicARG</title>
+<meta name="description" content="Cómo se juega UbicARG: reglas, modos de juego y cómo se calculan los puntos." />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+:root { --bg:#0d131d; --border:#253244; --text:#b4c0cf; --text-h:#e7ecf3; --accent:#38bdf8; }
+* { box-sizing: border-box; }
+html, body { margin:0; background:var(--bg); color:var(--text); font:16px/1.65 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif; -webkit-font-smoothing: antialiased; }
+main { max-width: 760px; margin: 0 auto; padding: 28px 20px 64px; }
+header.top { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom: 8px; }
+.brand { font-weight:800; font-size:22px; color:var(--text-h); text-decoration:none; }
+.back { color:#fff; background:var(--accent); text-decoration:none; font-weight:600; font-size:14px; padding:8px 18px; border-radius:999px; }
+h1 { color:var(--text-h); font-size: 30px; line-height:1.2; margin: 24px 0 8px; }
+h2 { color:var(--text-h); font-size: 20px; margin: 32px 0 8px; }
+p, li { margin: 0 0 12px; }
+ul, ol { padding-left: 22px; margin: 0 0 12px; }
+a { color: var(--accent); }
+strong { color: var(--text-h); }
+.upd { color:#8d9daf; font-size: 14px; }
+footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 14px; display:flex; gap:18px; flex-wrap:wrap; }
+</style>
+</head>
+<body>
+<main>
+<header class="top">
+<a class="brand" href="/">UbicARG</a>
+<a class="back" href="/">Ir al juego</a>
+</header>
+<h1>Cómo se juega</h1>
+
+<h2>¿De qué se trata?</h2>
+<p>UbicARG es un juego de geografía argentina. En cada ronda te mostramos el nombre de una localidad y la provincia a la que pertenece (por ejemplo, <em>“Ubica Purmamarca de Jujuy en el mapa”</em>) y vos tenés que tocar en el mapa el lugar donde creés que está. Cuando confirmás, te mostramos dónde estaba realmente, a cuántos kilómetros te equivocaste y cuántos puntos sumaste.</p>
+<p>El mapa arranca mostrando todo el país. Podés moverlo y hacer zoom para ubicarte mejor antes de confirmar: cuanto más cerca del punto real, más puntos.</p>
+
+<h2>Cómo se juega, paso a paso</h2>
+<ol>
+<li>Leé el nombre de la localidad y su provincia arriba de la pantalla.</li>
+<li>Mové el mapa y hacé zoom hasta la zona donde creés que está.</li>
+<li>Tocá el mapa para marcar tu respuesta. Podés volver a tocar para mover el pin.</li>
+<li>Apretá <strong>“Confirmar ubicación”</strong>. Vas a ver la ubicación real, la distancia y tus puntos.</li>
+<li>Repetí hasta completar las 5 rondas. Tu puntaje final es la suma de todas las rondas (máximo 500).</li>
+</ol>
+
+<h2>Cómo se calculan los puntos</h2>
+<ul>
+<li>Si te equivocás por <strong>1 km o menos</strong>, sumás los <strong>100 puntos</strong> completos de la ronda.</li>
+<li>Pasado el primer kilómetro, perdés <strong>1 punto cada 6 km</strong> de distancia.</li>
+<li>El mínimo por ronda es 0 puntos. La distancia se muestra en kilómetros.</li>
+</ul>
+
+<h2>Modos de juego</h2>
+<ul>
+<li><strong>Mapa del día:</strong> 5 localidades nuevas cada día, de las mismas provincias para todos los jugadores. Se puede jugar sin límite de tiempo (modo tranqui) o con tiempo por ubicación (modo competitivo), que entra en el ranking del día.</li>
+<li><strong>Archivo:</strong> volvé a jugar los mapas de días anteriores.</li>
+<li><strong>Práctica:</strong> partidas al azar con localidades de todo el país.</li>
+<li><strong>Personalizada:</strong> elegí solo las provincias con las que querés jugar.</li>
+<li><strong>Duelos:</strong> rankeados (afectan tu ELO), privados contra un amigo o multijugador con link.</li>
+<li><strong>Grupos y rankings:</strong> armá un grupo con tus amigos y competí en el ranking del mapa del día y en el ranking de ELO.</li>
+</ul>
+
+<h2>Sobre las localidades</h2>
+<p>Las localidades salen de la Base de Asentamientos Humanos de la República Argentina (BAHRA) del Instituto Geográfico Nacional. En el Área Metropolitana de Buenos Aires (AMBA), la Ciudad de Buenos Aires y cada partido del Gran Buenos Aires cuentan como una única ubicación (por ejemplo, Martínez y Beccar forman parte de San Isidro).</p>
+
+<h2>¿Necesito una cuenta?</h2>
+<p>No para jugar el mapa del día. Si te registrás (con Google o con email y contraseña) podés jugar duelos, armar grupos, entrar a los rankings y guardar tus estadísticas.</p>
+
+<footer>
+<a href="/privacidad">Política de privacidad</a>
+<a href="/">Volver a UbicARG</a>
+</footer>
+</main>
+</body>
+</html>
