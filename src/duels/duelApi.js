@@ -200,26 +200,27 @@ export async function closeDuel(duelId, winnerId) {
 // A closed duel with winner_id null (only possible once 2+ people played —
 // forfeits always name a winner) is a genuine tie, not "unresolved".
 export async function getDuelStats(profileId) {
-  const { data: myResults, error: myResultsError } = await supabase
-    .from('duel_results')
-    .select('duel_id')
-    .eq('profile_id', profileId)
-  if (myResultsError) throw myResultsError
-  const duelIds = myResults.map((r) => r.duel_id)
   const stats = {
     oneVOnePrivate: { played: 0, won: 0, tied: 0 },
     oneVOneRanked: { played: 0, won: 0, tied: 0 },
     multi: { played: 0, won: 0, tied: 0 },
   }
-  if (duelIds.length === 0) return stats
 
+  // Queried from duel_results (filtered by profile_id) with duels embedded,
+  // rather than the other way around with an .in('id', [...duelIds]) —
+  // a heavy player's duel_ids list blows past PostgREST's URL length limit
+  // (a few hundred duels is enough for a 400 Bad Request), and this shape
+  // needs no id list up front at all.
   const { data, error } = await supabase
-    .from('duels')
-    .select('is_multiplayer, winner_id, closed_at, matchmaking, opponent_id, duel_results(profile_id, total_score)')
-    .in('id', duelIds)
+    .from('duel_results')
+    .select(
+      'duels!inner(is_multiplayer, winner_id, closed_at, matchmaking, opponent_id, duel_results(profile_id, total_score))',
+    )
+    .eq('profile_id', profileId)
   if (error) throw error
 
-  for (const duel of data) {
+  for (const row of data) {
+    const duel = row.duels
     if (isPendingRival(duel)) continue
     const bucket = duel.is_multiplayer ? stats.multi : duel.matchmaking ? stats.oneVOneRanked : stats.oneVOnePrivate
     bucket.played += 1
@@ -295,26 +296,22 @@ export async function getDuelResults(duelId) {
 // all in that case). A still-pending "Duelo random" (see isPendingRival) is
 // excluded — it isn't a real match yet, so it shouldn't show up as one.
 export async function listMyDuels(profileId) {
-  const { data: myResults, error: myResultsError } = await supabase
-    .from('duel_results')
-    .select('duel_id')
-    .eq('profile_id', profileId)
-  if (myResultsError) throw myResultsError
-  const duelIds = myResults.map((r) => r.duel_id)
-  if (duelIds.length === 0) return []
-
+  // Same duel_results-first shape as getDuelStats, and for the same reason —
+  // no .in('id', [...duelIds]) with a potentially huge id list in the URL.
   const { data, error } = await supabase
-    .from('duels')
+    .from('duel_results')
     .select(
-      `*,
+      `duels!inner(*,
       challenger:challenger_id(id, username, elo),
       opponent:opponent_id(id, username, elo),
-      duel_results(profile_id, total_score, completed_at, profile:profile_id(id, username, elo))`,
+      duel_results(profile_id, total_score, completed_at, profile:profile_id(id, username, elo)))`,
     )
-    .in('id', duelIds)
-    .order('created_at', { ascending: false })
+    .eq('profile_id', profileId)
   if (error) throw error
-  return data.filter((d) => !isPendingRival(d))
+  return data
+    .map((row) => row.duels)
+    .filter((d) => !isPendingRival(d))
+    .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
 }
 
 // The flip side of listMyDuels' filter: "Duelo random" entries I created
