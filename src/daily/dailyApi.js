@@ -62,16 +62,31 @@ export async function getDailyLeaderboard(dayNumber, viewerId = null, viewerIsGh
 
 // All-time best-average leaderboard — every competitivo (timed) row ever
 // played, aggregated per player. Tranqui never counts here since it never
-// ranks. Small-scale aggregation done client-side, same style as the rest
-// of this app's stats (see duelApi.js's getDuelStats).
+// ranks. Aggregation done client-side, same style as the rest of this app's
+// stats (see duelApi.js's getDuelStats).
+//
+// Paginated with .range() — PostgREST caps a single request at 1000 rows by
+// default (same reason supabaseClient.js's fetchAllRows loops). Without the
+// loop, anyone whose rows fell past the first page was silently undercounted
+// (or missing entirely, dropping them below the played>=3 cutoff) despite
+// having really played enough — hit in UbicaBA once daily_stats passed 1000
+// rows, fixed there the same way.
 export async function getDailyAverageLeaderboard(viewerId = null, viewerIsGhost = false) {
-  const { data, error } = await supabase
-    .from('daily_stats')
-    .select(
-      'profile_id, total_score, profile:profile_id(username, avatar_url, elo, ranked_games_played, is_banned, ghost_mode, is_bot)',
-    )
-    .eq('timed', true)
-  if (error) throw error
+  const PAGE = 1000
+  const data = []
+  for (let from = 0; ; from += PAGE) {
+    const { data: page, error } = await supabase
+      .from('daily_stats')
+      .select(
+        'profile_id, total_score, profile:profile_id(username, avatar_url, elo, ranked_games_played, is_banned, ghost_mode, is_bot)',
+      )
+      .eq('timed', true)
+      .order('id', { ascending: true })
+      .range(from, from + PAGE - 1)
+    if (error) throw error
+    data.push(...page)
+    if (page.length < PAGE) break
+  }
 
   const byProfile = new Map()
   for (const row of data) {
