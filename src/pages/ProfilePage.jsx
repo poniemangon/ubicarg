@@ -31,6 +31,19 @@ function formatDailyDate(dayNumber) {
   })
 }
 
+// Actually loads the URL as an image before accepting it — a link that
+// 404s, points at an HTML page, or is just plain wrong (typo, wrong paste)
+// would otherwise get saved as-is and only show up broken on every avatar
+// everywhere it's rendered. Resolves true/false, never rejects.
+function urlLooksLikeImage(url) {
+  return new Promise((resolve) => {
+    const img = new Image()
+    img.onload = () => resolve(true)
+    img.onerror = () => resolve(false)
+    img.src = url
+  })
+}
+
 function DuelRow({ duel, myProfileId, onOpen }) {
   const mine = duel.duel_results.find((r) => r.profile_id === myProfileId)
   const others = duel.duel_results.filter((r) => r.profile_id !== myProfileId)
@@ -89,6 +102,7 @@ export default function ProfilePage() {
   const [editingAvatar, setEditingAvatar] = useState(false)
   const [avatarUrlInput, setAvatarUrlInput] = useState('')
   const [avatarStatus, setAvatarStatus] = useState(null)
+  const [avatarChecking, setAvatarChecking] = useState(false)
 
   const [friends, setFriends] = useState({ accepted: [], incoming: [], outgoing: [] })
   const [duels, setDuels] = useState([])
@@ -272,6 +286,14 @@ export default function ProfilePage() {
     const cleaned = avatarUrlInput.trim()
     if (!cleaned) {
       setAvatarStatus({ type: 'error', text: 'Pegá una URL de imagen.' })
+      return
+    }
+    setAvatarStatus(null)
+    setAvatarChecking(true)
+    const isImage = await urlLooksLikeImage(cleaned)
+    setAvatarChecking(false)
+    if (!isImage) {
+      setAvatarStatus({ type: 'error', text: 'No hay imagen detectada en ese link.' })
       return
     }
     try {
@@ -614,10 +636,15 @@ export default function ProfilePage() {
                 <p className={`profile-search-status profile-search-status-${avatarStatus.type}`}>{avatarStatus.text}</p>
               )}
               <div className="profile-avatar-form-actions">
-                <button type="submit" className="primary-btn secondary-btn">
-                  Guardar
+                <button type="submit" className="primary-btn secondary-btn" disabled={avatarChecking}>
+                  {avatarChecking ? 'Verificando...' : 'Guardar'}
                 </button>
-                <button type="button" className="primary-btn secondary-btn" onClick={() => setEditingAvatar(false)}>
+                <button
+                  type="button"
+                  className="primary-btn secondary-btn"
+                  onClick={() => setEditingAvatar(false)}
+                  disabled={avatarChecking}
+                >
                   Cancelar
                 </button>
               </div>
